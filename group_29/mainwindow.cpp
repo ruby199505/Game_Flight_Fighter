@@ -5,6 +5,7 @@
 #include <QKeyEvent>
 #include <QLabel>
 #include <QDialog>
+QSet<int> pressedKeys;
 
 int i = 0;
 
@@ -17,9 +18,6 @@ MainWindow::MainWindow(QWidget *parent)
     this->setWindowIcon(QIcon(":/Image/bird1.png"));
     this->setWindowTitle("Fight Flighter");
 
-    //創建水管
-//    for(int i=0;i<pipeCount;i++)
-//        pipe[i]=new OBSTACLE(this);
 
     //創建鳥
     birds=new ROLE(this);
@@ -53,13 +51,23 @@ void MainWindow::paintEvent(QPaintEvent *)		//繪圖事件, 用来產生背景
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     // 在這裡設定按下鍵盤要觸發的功能
-    if(event->key()==Qt::Key_Up || event->key()==Qt::Key_W || event->key()==Qt::Key_Space)
+    if(event->key()==Qt::Key_Left)
     {
-        birdAction();
-        jump_sound->stop();
-        jump_sound->play();
-
+        if(gamemod!=lose) moving('L');
     }
+    if(event->key()==Qt::Key_Right)
+    {
+        if(gamemod!=lose) moving('R');
+    }
+    if(event->key()==Qt::Key_Up)
+    {
+        if(gamemod!=lose) moving('U');
+    }
+    if(event->key()==Qt::Key_Down)
+    {
+        if(gamemod!=lose) moving('D');
+    }
+
 }
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
@@ -100,10 +108,25 @@ void MainWindow::createBird(){
     timedata=8;
 }
 
-//void MainWindow::birdup(){
-//    index_birdV=0.0;
-//    birdV=birdV_array[int(index_birdV)];
-//}
+void MainWindow::moving(char cmd)
+{
+    if(cmd=='L')
+    {
+        birds->move(birds->pos().x()-15,birds->pos().y());
+    }
+    if(cmd=='R')
+    {
+        birds->move(birds->pos().x()+15,birds->pos().y());
+    }
+    if(cmd=='U')
+    {
+        birds->move(birds->pos().x(),birds->pos().y()-15);
+    }
+    if(cmd=='D')
+    {
+        birds->move(birds->pos().x(),birds->pos().y()+15);
+    }
+}
 
 void MainWindow::birdAction()
 {
@@ -121,7 +144,7 @@ void MainWindow::birdAction()
     birdV=birdV_array[int(index_birdV)];
 
     // 這邊做一個地板碰撞偵測
-    if(birds->pos().y()+birds->height()>=win_height+10)
+    /*if(birds->pos().y()+birds->height()>=win_height+10)
     {
         if (i == 0) { // Hit Sound will play once only
             hit_music->play();
@@ -130,14 +153,9 @@ void MainWindow::birdAction()
         birds->move(birds->pos().x(),win_height-birds->height()+10); // XX->height可用來取得物件高度
         birdTimer->stop();        
         gameLose();
-    }
+    }*/
 }
-void MainWindow::pipeAction()
-{
-//    //水管動畫，水管離開地圖後，重新回到右側接替lastPipe位置
 
-
-}
 void MainWindow::collisDete()
 {
 //    //水管碰撞偵測
