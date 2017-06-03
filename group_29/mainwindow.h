@@ -22,16 +22,15 @@ protected:
 
 private slots:
     void birdAction();			//鳥的動作
-    void pipeAction();			//綠色管子的動作
     void collisDete();			//碰撞偵測
 private:
 
-    void birdup();              // 設定鳥飛行速度參數
     void createPipe();			// 產生水管
     void createBird();          // 產生角色 - 鳥
     void gameLose();			 //遊戲結束
     void gameStart();			 //遊戲開始
     void gameRedy();             //遊戲預備
+    void moving(char);
 
     ROLE *birds;			// 建立一隻角色 - 鳥
     double birdV;			// 鳥的速度

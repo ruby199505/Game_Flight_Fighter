@@ -21,7 +21,7 @@ private:
     QTimer *roleTimer;
     int i;
     int j;
-    QString roleImg[3];
+    QString roleImg;
 
 };
 
