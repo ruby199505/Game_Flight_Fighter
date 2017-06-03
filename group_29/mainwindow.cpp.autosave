@@ -53,9 +53,9 @@ void MainWindow::paintEvent(QPaintEvent *)		//繪圖事件, 用来產生背景
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     // 在這裡設定按下鍵盤要觸發的功能
-    if(event->key()==Qt::Key_Up || event->key()==Qt::Key_W || event->key()==Qt::Key_Space)
+    if(event->key()==Qt::Key_Up)
     {
-        birdAction();
+        birdAction(event->key());
         jump_sound->stop();
         jump_sound->play();
 
