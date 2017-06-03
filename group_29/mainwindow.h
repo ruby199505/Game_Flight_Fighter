@@ -5,7 +5,7 @@
 #include <QApplication>
 #include <QMouseEvent>
 #include <role.h>
-#include <obstacle.h>
+//#include <obstacle.h>
 #include "easymusic.h"
 
 class MainWindow : public QMainWindow
@@ -43,7 +43,7 @@ private:
     int gamemod;		//目前遊戲狀態, 0=lose, 1=start, 2=redy
     // 遊戲狀態預設流程： redy -> start -> lose -> redy -> start .... 不斷循環
     enum{pipeCount=5};		//  pipe 數量
-    OBSTACLE *pipe[pipeCount];	// 建立水管
+//    OBSTACLE *pipe[pipeCount];	// 建立水管
     QTimer *pipeTimer;
     int pipeTValue;     // pipeTimer interval
     int pipeXgap;		// 管子間距

@@ -16,11 +16,11 @@ MainWindow::MainWindow(QWidget *parent)
     win_height = 900;
     this->setFixedSize(win_width,win_height);	//視窗大小
     this->setWindowIcon(QIcon(":/Image/bird1.png"));
-    this->setWindowTitle("Qt FlappyBird");
+    this->setWindowTitle("Fight Flighter");
 
     //創建水管
-    for(int i=0;i<pipeCount;i++)
-        pipe[i]=new OBSTACLE(this);
+//    for(int i=0;i<pipeCount;i++)
+//        pipe[i]=new OBSTACLE(this);
 
     //創建鳥
     birds=new ROLE(this);
@@ -31,11 +31,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Music
     bgm =new easyMusic("musicFile/bg_music.mp3",80,1);
-    /*bgm: 背景音樂
-     * 第一個參數要放音樂檔案所在的路徑
-     * 第二個參數要放音量大小(0-100)
-     * 第三個參數是isLoop 1表示循環撥放 0表示只撥放一次
-     */
     jump_sound = new easyMusic("musicFile/jumpSound.mp3",100,0);
     hit_music = new easyMusic("musicFile/sfx_hit.wav",100,0);
 
@@ -44,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     gameRedy();
 
     //遊戲開始
-    //gameStart();
+    gameStart();
 }
 
 void MainWindow::paintEvent(QPaintEvent *)		//繪圖事件, 用来產生背景
@@ -66,51 +61,35 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         jump_sound->stop();
         jump_sound->play();
 
-        num_click++;
-        QString title = "QT FlappyBird " + QString::number(num_click);
-        this->setWindowTitle(title);
     }
 }
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
     // 在這裡設定按下滑鼠要觸發的功能
-    /*
-    if(event->button()==Qt::LeftButton)
-    {
-        birdup();
-        jump_sound->stop();
-        jump_sound->play();
-    }
-    */
-    if(event->button()==Qt::LeftButton) {
-        gameStart();
-    }
-    if(event->button()==Qt::RightButton) {
-        gameRedy();
-    }
 }
 void MainWindow::createPipe()		//初始化水管，依序排在視窗外
 {
 
-    int startx=win_width+10;		//第一个水管的位置
-    pipeXgap=200;		//水管水平間距
-    int pipR;			//水管垂直位置隨機數
-    qsrand(time(NULL));		//qrand是qt的隨機函數 用法和c的rand一樣
+//    int startx=win_width+10;		//第一个水管的位置
+//    pipeXgap=200;		//水管水平間距
+//    int pipR;			//水管垂直位置隨機數
+//    qsrand(time(NULL));		//qrand是qt的隨機函數 用法和c的rand一樣
 
-    for(int i=0;i<pipeCount;i++)
-    {
-        pipR=qrand()%200;
+//    for(int i=0;i<pipeCount;i++)
+//    {
+//        pipR=qrand()%200;
 
-        pipe[i]->move(startx+i*pipeXgap,-200+pipR);
-        lastPipe=i;		//很重要 記錄最後一個水管號碼 為後面的循環水管建立基礎
-    }
+//        pipe[i]->move(startx+i*pipeXgap,-200+pipR);
+//        lastPipe=i;		//很重要 記錄最後一個水管號碼 為後面的循環水管建立基礎
+//    }
 
-    pipeTimer =new QTimer(this);	//pipeTimer 處理兩個動作
-    connect(pipeTimer,SIGNAL(timeout()),this,SLOT(pipeAction()));
-    connect(pipeTimer,SIGNAL(timeout()),this,SLOT(collisDete()));
-    pipeTValue=8;
+//    pipeTimer =new QTimer(this);	//pipeTimer 處理兩個動作
+//    connect(pipeTimer,SIGNAL(timeout()),this,SLOT(pipeAction()));
+//    connect(pipeTimer,SIGNAL(timeout()),this,SLOT(collisDete()));
+//    pipeTValue=8;
 
 }
+
 void MainWindow::createBird(){
 
     birds->move(60,250);
@@ -173,41 +152,40 @@ void MainWindow::birdAction()
 }
 void MainWindow::pipeAction()
 {
-    //水管動畫，水管離開地圖後，重新回到右側接替lastPipe位置
-    int pipR; // 一個隨機變數，讓每次水管的位置都不太一樣
-    // 每次觸發這個函式，水管都會向左移動，如果最左邊的水管離開地圖範圍則移動到最右邊
-    for(int i=0;i<pipeCount;i++)
-    {
-        pipe[i]->move(pipe[i]->pos().x()-1,pipe[i]->pos().y());
-        if(pipe[i]->pos().x()<-100)
-        {
-            pipR=qrand()%200;
-            pipe[i]->move(pipe[lastPipe]->pos().x()+pipeXgap,-200+pipR);
-            lastPipe=i;
-        }
-    }
+//    //水管動畫，水管離開地圖後，重新回到右側接替lastPipe位置
+//    int pipR; // 一個隨機變數，讓每次水管的位置都不太一樣
+//    // 每次觸發這個函式，水管都會向左移動，如果最左邊的水管離開地圖範圍則移動到最右邊
+//    for(int i=0;i<pipeCount;i++)
+//    {
+//        pipe[i]->move(pipe[i]->pos().x()-1,pipe[i]->pos().y());
+//        if(pipe[i]->pos().x()<-100)
+//        {
+//            pipR=qrand()%200;
+//            pipe[i]->move(pipe[lastPipe]->pos().x()+pipeXgap,-200+pipR);
+//            lastPipe=i;
+//        }
+//    }
 }
 void MainWindow::collisDete()
 {
-    //水管碰撞偵測
-    int birdRx=birds->pos().x()+30;
-    int birdDy=birds->pos().y()+30;
-    for(int i=0;i<pipeCount;i++)
-    {
-        if(birdRx>=pipe[i]->pos().x()&&birds->pos().x()<=pipe[i]->pos().x()+pipe[i]->width()-10) // XX->width可用來取得物件寬度
-        {
-            if(birds->pos().y() <= (pipe[i]->pos().y()+pipe[i]->getH1()) || birdDy >= (pipe[i]->pos().y()+pipe[i]->getH1()+pipe[i]->getGap()))
-                //碰到水管遊戲結束
-                gameLose();
-        }
-    }
+//    //水管碰撞偵測
+//    int birdRx=birds->pos().x()+30;
+//    int birdDy=birds->pos().y()+30;
+//    for(int i=0;i<pipeCount;i++)
+//    {
+//        if(birdRx>=pipe[i]->pos().x()&&birds->pos().x()<=pipe[i]->pos().x()+pipe[i]->width()-10) // XX->width可用來取得物件寬度
+//        {
+//            if(birds->pos().y() <= (pipe[i]->pos().y()+pipe[i]->getH1()) || birdDy >= (pipe[i]->pos().y()+pipe[i]->getH1()+pipe[i]->getGap()))
+//                //碰到水管遊戲結束
+//                gameLose();
+//        }
+//    }
 }
 void MainWindow::gameRedy()
 {
-    num_click = 0;
     gamemod=redy;
     createBird();
-    createPipe();
+//    createPipe();
 }
 void MainWindow::gameLose()
 {
@@ -216,9 +194,8 @@ void MainWindow::gameLose()
 }
 void MainWindow::gameStart()
 {
-    num_click = 0;
     gamemod=start;
     birdTimer->start(timedata);
-    pipeTimer->start(pipeTValue);
+    //pipeTimer->start(pipeTValue);
     bgm->play();
 }
