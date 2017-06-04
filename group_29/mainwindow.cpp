@@ -26,6 +26,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(birdTimer, SIGNAL(timeout()), this, SLOT(birdAction()));
     birdTimer->start(100);
 
+    int i;
+    for(i=0;i<8;i++) bullet[i]=new mybullet(this);
+    bulletTimer = new QTimer(this);
+    connect(bulletTimer, SIGNAL(timeout()), this, SLOT(mybulletAction()));
+    bulletTimer->start(10);
+
     //Music
     bgm =new easyMusic("musicFile/bg_music.mp3",80,1);
     jump_sound = new easyMusic("musicFile/jumpSound.mp3",100,0);
@@ -67,23 +73,25 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     {
         if(gamemod!=lose) moving('D');
     }
+    // shooting
+    if(event->key()==Qt::Key_Space)
+    {
+        if(gamemod!=lose) myshoot();
+    }
 
 }
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
     // 在這裡設定按下滑鼠要觸發的功能
 }
-void MainWindow::createPipe()		//初始化水管，依序排在視窗外
-{
 
-}
 
 void MainWindow::createBird(){
 
-    birds->move(60,250);
+    birds->move(0,0);
     //鳥的上下速度
     //-3 -4 -3 -2 -1 -1 -1 0 1 1 2 2 2 3 3
-    this->birdV_array[0]=0;
+    /*this->birdV_array[0]=0;
     this->birdV_array[1]=0;
     this->birdV_array[2]=0;
     this->birdV_array[3]=0;
@@ -101,7 +109,7 @@ void MainWindow::createBird(){
 
     this->index_birdV=0;
 
-    birdV=0;
+    birdV=0;*/
 
     birdTimer=new QTimer(this);
     connect(birdTimer,SIGNAL(timeout()),this,SLOT(birdAction()));
@@ -112,28 +120,42 @@ void MainWindow::moving(char cmd)
 {
     if(cmd=='L')
     {
-        if(birds->pos().x()>-260) birds->move(birds->pos().x()-20,birds->pos().y());
+        if(birds->pos().x()>-300) birds->move(birds->pos().x()-20,birds->pos().y());
     }
     if(cmd=='R')
     {
-        if(birds->pos().x()<360) birds->move(birds->pos().x()+20,birds->pos().y());
+        if(birds->pos().x()<320) birds->move(birds->pos().x()+20,birds->pos().y());
     }
     if(cmd=='U')
     {
-        if(birds->pos().y()>-480) birds->move(birds->pos().x(),birds->pos().y()-20);
+        if(birds->pos().y()>-720) birds->move(birds->pos().x(),birds->pos().y()-20);
     }
     if(cmd=='D')
     {
-        if(birds->pos().y()<240) birds->move(birds->pos().x(),birds->pos().y()+20);
+        if(birds->pos().y()<0) birds->move(birds->pos().x(),birds->pos().y()+20);
     }
 }
+
+void MainWindow::myshoot()
+{
+    bullet[i++]->move(birds->pos().x()+357,birds->pos().y()+740);
+    if(i==8) i=0;
+}
+
+void MainWindow::mybulletAction()
+{
+    bullet[i]->move(bullet[i]->pos().x(),bullet[i]->pos().y()-100);
+    i++;
+    if(i==8) i = 0;
+}
+
 
 void MainWindow::birdAction()
 {
     //鳥的運動
     // 每次觸發這個function都會更改鳥的位置，x軸不變, y軸加上 birdV成為新的位置
     // XX->pos().x() and XX->pos().y() 是QWidget物件的函式，可以用來取得xy座標位置
-    birds->move(birds->pos().x(),birds->pos().y()+birdV);
+    /*birds->move(birds->pos().x(),birds->pos().y()+birdV);
 
 
     if(index_birdV<14.0)

@@ -17,13 +17,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     role.cpp \
-    obstacle.cpp \
-    easymusic.cpp
+    easymusic.cpp \
+    mybullet.cpp
 
 HEADERS  += mainwindow.h \
     role.h \
-    obstacle.h \
-    easymusic.h
+    easymusic.h \
+    mybullet.h
 
 RESOURCES += \
     resource.qrc
