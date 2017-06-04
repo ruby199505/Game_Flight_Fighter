@@ -19,8 +19,6 @@ protected:
 
 private:
     QTimer *roleTimer;
-    int i;
-    int j;
     QString roleImg;
 
 };

@@ -5,7 +5,7 @@
 #include <QApplication>
 #include <QMouseEvent>
 #include <role.h>
-//#include <obstacle.h>
+#include <mybullet.h>
 #include "easymusic.h"
 
 class MainWindow : public QMainWindow
@@ -23,22 +23,24 @@ protected:
 private slots:
     void birdAction();			//鳥的動作
     void collisDete();			//碰撞偵測
+
+    void mybulletAction();
 private:
 
-    void createPipe();			// 產生水管
     void createBird();          // 產生角色 - 鳥
     void gameLose();			 //遊戲結束
     void gameStart();			 //遊戲開始
     void gameRedy();             //遊戲預備
     void moving(char);
+    void myshoot();
 
     ROLE *birds;			// 建立一隻角色 - 鳥
-    double birdV;			// 鳥的速度
+    //double birdV;			// 鳥的速度
     QTimer *birdTimer;
     double timedata;			// birdTimer interval
-    double birdV_array[15];
-    double index_birdV;
-    double index_birdH;
+    //double birdV_array[15];
+    //double index_birdV;
+    //double index_birdH;
     enum{lose=0,start=1,redy=2};  // Enum三個參數, 代表遊戲狀態
     int gamemod;		//目前遊戲狀態, 0=lose, 1=start, 2=redy
     // 遊戲狀態預設流程： redy -> start -> lose -> redy -> start .... 不斷循環
@@ -56,6 +58,9 @@ private:
     easyMusic *bgm;
     easyMusic *jump_sound;
     easyMusic *hit_music;
+
+    mybullet *bullet[8];
+    QTimer *bulletTimer;
 };
 
 #endif // MAINWINDOW_H

@@ -3,5 +3,6 @@
         <file>Image/bird.ico</file>
         <file>Image/role.png</file>
         <file>Image/background.gif</file>
+        <file>Image/bullet.png</file>
     </qresource>
 </RCC>

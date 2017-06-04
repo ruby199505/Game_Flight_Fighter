@@ -14,10 +14,7 @@ ROLE::ROLE(QWidget *parent) : QWidget(parent)
     roleTimer->start(1000);
 }
 
-ROLE::~ROLE()
-{
-
-}
+ROLE::~ROLE() {}
 
 void ROLE::paintEvent(QPaintEvent *)
 {
@@ -25,6 +22,6 @@ void ROLE::paintEvent(QPaintEvent *)
     QPixmap pix;
 
     pix.load(roleImg);
-    painter.drawPixmap(280,505,91,125,pix);
+    painter.drawPixmap(320,750,91,125,pix);
 }
 
