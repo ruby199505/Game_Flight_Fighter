@@ -112,19 +112,19 @@ void MainWindow::moving(char cmd)
 {
     if(cmd=='L')
     {
-        birds->move(birds->pos().x()-15,birds->pos().y());
+        if(birds->pos().x()>-260) birds->move(birds->pos().x()-20,birds->pos().y());
     }
     if(cmd=='R')
     {
-        birds->move(birds->pos().x()+15,birds->pos().y());
+        if(birds->pos().x()<360) birds->move(birds->pos().x()+20,birds->pos().y());
     }
     if(cmd=='U')
     {
-        birds->move(birds->pos().x(),birds->pos().y()-15);
+        if(birds->pos().y()>-480) birds->move(birds->pos().x(),birds->pos().y()-20);
     }
     if(cmd=='D')
     {
-        birds->move(birds->pos().x(),birds->pos().y()+15);
+        if(birds->pos().y()<240) birds->move(birds->pos().x(),birds->pos().y()+20);
     }
 }
 
