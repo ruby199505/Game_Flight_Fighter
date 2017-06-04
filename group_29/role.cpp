@@ -6,7 +6,7 @@
 
 ROLE::ROLE(QWidget *parent) : QWidget(parent)
 {
-    this->setFixedSize(136,181);
+    this->setFixedSize(760,900);
     roleImg=":/Image/role.png";
     roleTimer = new QTimer(this);
 
@@ -25,6 +25,6 @@ void ROLE::paintEvent(QPaintEvent *)
     QPixmap pix;
 
     pix.load(roleImg);
-    painter.drawPixmap(0,0,136,181,pix);
+    painter.drawPixmap(280,505,91,125,pix);
 }
 
