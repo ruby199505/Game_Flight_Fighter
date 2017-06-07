@@ -5,6 +5,7 @@
 #include <QKeyEvent>
 #include <QLabel>
 #include <QDialog>
+#include <iostream>
 QSet<int> pressedKeys;
 
 int i = 0;
@@ -18,41 +19,41 @@ MainWindow::MainWindow(QWidget *parent)
     this->setWindowIcon(QIcon(":/Image/player1.png"));
     this->setWindowTitle("Fight Flighter");
 
+    setStyleSheet("background-color: black;");
+//    //create player
+//    player=new ROLE(this);
+//    playerTimer = new QTimer(this);
 
-    //create player
-    player=new ROLE(this);
-    playerTimer = new QTimer(this);
+//    connect(playerTimer, SIGNAL(timeout()), this, SLOT(playerAction()));
+//    playerTimer->start(100);
 
-    connect(playerTimer, SIGNAL(timeout()), this, SLOT(playerAction()));
-    playerTimer->start(100);
-
-    int i;
-    for(i=0;i<24;i++) bullet[i]=new mybullet(this);
-    bulletTimer = new QTimer(this);
-    connect(bulletTimer, SIGNAL(timeout()), this, SLOT(mybulletAction()));
-    bulletTimer->start(2);
+//    int i;
+//    for(i=0;i<24;i++) bullet[i]=new mybullet(this);
+//    bulletTimer = new QTimer(this);
+//    connect(bulletTimer, SIGNAL(timeout()), this, SLOT(mybulletAction()));
+//    bulletTimer->start(2);
 
     //Music
     bgm =new easyMusic("musicFile/bg_music.mp3",80,1);
     jump_sound = new easyMusic("musicFile/jumpSound.mp3",100,0);
     hit_music = new easyMusic("musicFile/sfx_hit.wav",100,0);
-
+    createBackground();
     //遊戲初始模式
-    gameRedy();
+//    gameRedy();
 
     //遊戲開始
-    gameStart();
+//    gameStart();
 }
 
 void MainWindow::paintEvent(QPaintEvent *)		//繪圖事件, 用来產生背景
 {
     // 可以在這裡新增背景圖片
 
-    QPainter painter(this);
-    QPixmap bgImg;
-    bgImg.load(":/Image/background.gif");
+//    QPainter painter(this);
+//    QPixmap bgImg;
+//    bgImg.load(":/Image/background.gif");
 
-    painter.drawPixmap(0, 0, 760, 900, bgImg);
+//    painter.drawPixmap(0, 0, 760, 900, bgImg);
 }
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
@@ -152,4 +153,28 @@ void MainWindow::gameStart()
     gamemod=start;
     playerTimer->start(timedata);
     bgm->play();
+}
+void MainWindow::createBackground()
+
+{
+
+    QMovie* movie = new QMovie(":/Image/gif.gif");
+
+    if (!movie->isValid())
+
+    {
+
+        std::cout << "Something wrong" << std::endl;
+
+    }
+
+    QLabel* label = new QLabel(this);
+
+    label->setGeometry(10,60,760,800);
+
+
+    label->setMovie(movie);
+
+    movie->start();
+
 }

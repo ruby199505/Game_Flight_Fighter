@@ -24,6 +24,7 @@ private slots:
     void playerAction();			//鳥的動作
     void collisDete();			//碰撞偵測
     void mybulletAction();
+    void createBackground();
 private:
 
     void createPlayer();          // 產生角色

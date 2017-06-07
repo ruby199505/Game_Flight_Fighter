@@ -26,6 +26,7 @@ HEADERS  += mainwindow.h \
     mybullet.h
 
 RESOURCES += \
-    resource.qrc
+    resource.qrc \
+    resource2.qrc
 
 DISTFILES +=

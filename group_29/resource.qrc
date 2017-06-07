@@ -4,5 +4,7 @@
         <file>Image/role.png</file>
         <file>Image/background.gif</file>
         <file>Image/bullet.png</file>
+        <file>Image/win.gif</file>
+        <file>Image/gameover.gif</file>
     </qresource>
 </RCC>
