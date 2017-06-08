@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QDialog>
 #include <iostream>
+#include"fighter.h"
 QSet<int> pressedKeys;
 
 int i = 0;
@@ -32,6 +33,13 @@ MainWindow::MainWindow(QWidget *parent)
 //    bulletTimer = new QTimer(this);
 //    connect(bulletTimer, SIGNAL(timeout()), this, SLOT(mybulletAction()));
 //    bulletTimer->start(2);
+    fighters= new fighter(this);
+    fighters->move(0,220);
+    timer = new QTimer(this);
+
+    connect(timer, SIGNAL(timeout()), this, SLOT(fighterAction()));
+    timer->start(1000);
+    i=55;
 
     //Music
     bgm =new easyMusic("musicFile/bg_music.mp3",80,1);
@@ -158,7 +166,7 @@ void MainWindow::createBackground()
 
 {
 
-    QMovie* movie = new QMovie(":/Image/gif.gif");
+    QMovie* movie = new QMovie(":/Image/start.gif");
 
     if (!movie->isValid())
 
@@ -170,11 +178,23 @@ void MainWindow::createBackground()
 
     QLabel* label = new QLabel(this);
 
-    label->setGeometry(10,60,760,800);
-
-
+    label->setGeometry(0,0,720,900);
     label->setMovie(movie);
 
     movie->start();
 
+}
+void MainWindow::fighterAction()
+{
+    int step_lenghth=55;
+
+    if(i<=step_lenghth*4)
+    {
+        fighters->move(i,220);
+        i=i+step_lenghth;
+    }
+    else
+    {
+        i=0;
+    }
 }

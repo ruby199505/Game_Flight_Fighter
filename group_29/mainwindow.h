@@ -7,6 +7,7 @@
 #include <role.h>
 #include <mybullet.h>
 #include "easymusic.h"
+#include "fighter.h"
 
 class MainWindow : public QMainWindow
 {
@@ -25,6 +26,7 @@ private slots:
     void collisDete();			//碰撞偵測
     void mybulletAction();
     void createBackground();
+    void fighterAction();
 private:
 
     void createPlayer();          // 產生角色
@@ -36,6 +38,7 @@ private:
 
     ROLE *player;			// 建立一隻角色 - 鳥
     QTimer *playerTimer;
+    QTimer *timer;
     double timedata;			// playerTimer interval
     enum{lose=0,start=1,redy=2};  // Enum三個參數, 代表遊戲狀態
     int gamemod;		//目前遊戲狀態, 0=lose, 1=start, 2=redy
@@ -50,6 +53,7 @@ private:
 
     mybullet *bullet[24];
     QTimer *bulletTimer;
+    fighter *fighters;
 };
 
 #endif // MAINWINDOW_H

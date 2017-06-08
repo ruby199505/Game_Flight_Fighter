@@ -18,15 +18,18 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     role.cpp \
     easymusic.cpp \
-    mybullet.cpp
+    mybullet.cpp \
+    fighter.cpp
 
 HEADERS  += mainwindow.h \
     role.h \
     easymusic.h \
-    mybullet.h
+    mybullet.h \
+    fighter.h
 
 RESOURCES += \
     resource.qrc \
-    resource2.qrc
+    resource2.qrc \
+    resource3.qrc
 
 DISTFILES +=

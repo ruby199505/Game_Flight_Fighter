@@ -6,5 +6,8 @@
         <file>Image/bullet.png</file>
         <file>Image/win.gif</file>
         <file>Image/gameover.gif</file>
+        <file>Image/fihter1.png</file>
+        <file>Image/fihter2.png</file>
+        <file>Image/fihter3.png</file>
     </qresource>
 </RCC>
